@@ -1,9 +1,10 @@
 const addButton = document.getElementById('add-button');
-addButton.addEventListener('click', creatingToDoTask);
-let counter = document.getElementById('counter');
+addButton.addEventListener('click', addingToDoTask);
+
+let spanCounter = document.getElementById('counter');
 
 // Function that create to do task item and appending it to the html.
-function creatingToDoTask(){
+function addingToDoTask(){
     const inputValue = document.getElementById('text-input');
     const inputPriority = document.getElementById('priority-selector');
     let timeCreation = new Date();
@@ -40,10 +41,10 @@ function creatingToDoTask(){
 function toDoTaskObjectCreationAndStorage(text, priority, time){
     // Creation of task object
     const taskObject = {
-        "text": text.value,
         "priority": priority.value,
-        "date": time
-    }
+        "date": time,
+        "text": text.value
+    };
 
     // Store the object in the localStorage
     let toDoList = JSON.parse(localStorage.getItem('ToDoList'));
@@ -52,6 +53,24 @@ function toDoTaskObjectCreationAndStorage(text, priority, time){
     toDoList.push(taskObject);
     localStorage.setItem('ToDoList', JSON.stringify(toDoList));
     console.log(toDoList);
+
+    // Calling a function to count how much tasks i have and changing the number of tasks in the html accordingly.
+    tasksCount(toDoList);
+}
+
+// Function that count how much tasks i have added to my to do list, adding the count to the localStorage and changing the number of tasks in the html.
+function tasksCount(arr){
+    // Counting how much tasks i have added.
+    let count = JSON.parse(localStorage.getItem('NumberOfTasks'));
+    count = 0;
+    for(let i = 0; i < arr.length; i++)
+        count++;
+
+    // Adding the count to the localStorage.
+    localStorage.setItem('NumberOfTasks', JSON.stringify(count));
+
+    // Changing the number of tasks in the html.
+    spanCounter.innerText = count;
 }
 
 
