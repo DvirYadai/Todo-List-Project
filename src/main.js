@@ -8,9 +8,8 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 // main event - 
-const addButton = document.getElementById('add-button');
-addButton.addEventListener('click', addingToDoTask);
-
+document.getElementById('add-button').addEventListener('click', addingToDoTask);
+document.getElementById('sort-button').addEventListener('click', sortTheTasksByPriority);
 let spanCounter = document.getElementById('counter');
 
 // Function that create to do task item and appending it to the html.
@@ -21,7 +20,7 @@ function addingToDoTask(){
     timeCreation = timeCreation.toISOString().split('T')[0]+' '+timeCreation.toTimeString().split(' ')[0];
 
     // Appending the object to the html.
-    const toDoList = document.getElementById('to-do-list');
+    const toDoListUL = document.getElementById('to-do-list');
     const listItem = document.createElement('li');
     const containerDiv = document.createElement('div');
     containerDiv.setAttribute('class', 'todo-container');
@@ -38,7 +37,7 @@ function addingToDoTask(){
     containerDiv.appendChild(dateDiv);
     containerDiv.appendChild(textDiv);
     listItem.appendChild(containerDiv);
-    toDoList.appendChild(listItem);
+    toDoListUL.appendChild(listItem);
 
     // Calling a function to store the text, priority and time in the localStorage
     toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
@@ -62,7 +61,6 @@ function toDoTaskObjectCreationAndStorage(text, priority, time){
         toDoList = [];
     toDoList.push(taskObject);
     localStorage.setItem('ToDoList', JSON.stringify(toDoList));
-    console.log(toDoList);
 
     // Calling a function to count how much tasks i have and changing the number of tasks in the html accordingly.
     tasksCount(toDoList);
@@ -85,26 +83,43 @@ function tasksCount(arr){
 
 // !only when refreshing! Function that create to do task item and appending it to the html from the array located in the localStorage. . !only when refreshing!
 function addingTasksWhenContentLoaded(arr, number){
-    const toDoList = document.getElementById('to-do-list');
+    const toDoListUL = document.getElementById('to-do-list');
     for (const item of arr) {
         const listItem = document.createElement('li');
         const containerDiv = document.createElement('div');
         containerDiv.setAttribute('class', 'todo-container');
+        let countClass = 1;
         for (const property in item) {
             const div = document.createElement('div');
-            div.setAttribute('class', 'todo-priority');
+            if(countClass === 1){
+                div.setAttribute('class', 'todo-priority');
+            } else if(countClass === 2){
+                div.setAttribute('class', 'todo-created-at');
+            } else div.setAttribute('class', 'todo-text');
+            countClass++;
             div.innerText = item[property];
             containerDiv.appendChild(div);
         }
         listItem.appendChild(containerDiv);
-        toDoList.appendChild(listItem);
+        toDoListUL.appendChild(listItem);
     }
 
     // Changing the number of tasks in the html.
     spanCounter.innerText = number;
 }
 
+// Function that sort array of object
+function sortTheTasksByPriority(){
+    let sortedToDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    sortedToDoList.sort(function(a, b) {
+        return parseFloat(a.priority) - parseFloat(b.priority);
+    });
+    console.log(sortedToDoList);
 
-
+    const toDoList = document.getElementById('to-do-list');
+    for(let i = 0; i < sortedToDoList.length; i++){
+        
+    }
+}
 
 
