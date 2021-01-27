@@ -8,8 +8,10 @@
   </head>
   <body>
     <div id="main">
-      <section class="control-section">
+      <section id="control-section">
         <h1 class="main-header">To Do List</h1>
+        <p id="counter">tasks.</p>
+        <button id="sort-button">Sort</button>
         <input type="text" id="text-input" placeholder="Write your task...">
         <select name="priority-selector" id="priority-selector">
           <option value="" disabled selected></option>
@@ -21,7 +23,10 @@
         </select>
         <button id="add-button">Add Task</button>
       </section>
-      <section class="view-section">
+      <section id="view-section">
+        <ul id="to-do-list">
+
+        </ul>
       </section>
     </div>
   <script src="./main.js"></script>
