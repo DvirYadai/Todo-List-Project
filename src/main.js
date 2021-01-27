@@ -1,3 +1,12 @@
+window.addEventListener('DOMContentLoaded', () => {
+    const savedToDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    const savedCount = JSON.parse(localStorage.getItem('NumberOfTasks'));
+    if(savedToDoList === null)
+        return;
+        addingTasksWhenContentLoaded(savedToDoList, savedCount);
+})
+
+// main event - 
 const addButton = document.getElementById('add-button');
 addButton.addEventListener('click', addingToDoTask);
 
@@ -72,6 +81,7 @@ function tasksCount(arr){
     // Changing the number of tasks in the html.
     spanCounter.innerText = count;
 }
+
 
 
 
