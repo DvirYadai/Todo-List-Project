@@ -1,6 +1,6 @@
 const addButton = document.getElementById('add-button');
 addButton.addEventListener('click', creatingToDoTask);
-
+let counter = document.getElementById('counter');
 
 // Function that create to do task item and appending it to the html.
 function creatingToDoTask(){
@@ -29,10 +29,29 @@ function creatingToDoTask(){
     listItem.appendChild(containerDiv);
     toDoList.appendChild(listItem);
 
+    // Calling a function to store the text, priority and time in the localStorage
+    toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
+
     // Cleaning the text input.
     inputValue.value = "";
+}
 
-    // Calling a function to store the text, priority and time in the localStorage
+// Function that create to do task object and store it in the localStorage.
+function toDoTaskObjectCreationAndStorage(text, priority, time){
+    // Creation of task object
+    const taskObject = {
+        "text": text.value,
+        "priority": priority.value,
+        "date": time
+    }
+
+    // Store the object in the localStorage
+    let toDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    if(toDoList === null)
+        toDoList = [];
+    toDoList.push(taskObject);
+    localStorage.setItem('ToDoList', JSON.stringify(toDoList));
+    console.log(toDoList);
 }
 
 
