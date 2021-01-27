@@ -1,3 +1,4 @@
+// Prevent the tasks from erasing when i refresh the page
 window.addEventListener('DOMContentLoaded', () => {
     const savedToDoList = JSON.parse(localStorage.getItem('ToDoList'));
     const savedCount = JSON.parse(localStorage.getItem('NumberOfTasks'));
@@ -82,7 +83,26 @@ function tasksCount(arr){
     spanCounter.innerText = count;
 }
 
+// !only when refreshing! Function that create to do task item and appending it to the html from the array located in the localStorage. . !only when refreshing!
+function addingTasksWhenContentLoaded(arr, number){
+    const toDoList = document.getElementById('to-do-list');
+    for (const item of arr) {
+        const listItem = document.createElement('li');
+        const containerDiv = document.createElement('div');
+        containerDiv.setAttribute('class', 'todo-container');
+        for (const property in item) {
+            const div = document.createElement('div');
+            div.setAttribute('class', 'todo-priority');
+            div.innerText = item[property];
+            containerDiv.appendChild(div);
+        }
+        listItem.appendChild(containerDiv);
+        toDoList.appendChild(listItem);
+    }
 
+    // Changing the number of tasks in the html.
+    spanCounter.innerText = number;
+}
 
 
 
