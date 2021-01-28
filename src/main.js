@@ -134,3 +134,14 @@ function sortTheTasksByPriority() {
     priorityArr.splice(j, 1);
   }
 }
+
+// Updating the JSONBIN.io.
+function updateJsonBin(toDoListArr) {
+  fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ "my-todo": toDoListArr }),
+  });
+}
