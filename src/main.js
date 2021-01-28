@@ -145,3 +145,7 @@ function updateJsonBin(toDoListArr) {
     body: JSON.stringify({ "my-todo": toDoListArr }),
   });
 }
+
+function getJsonBinData() {
+  return fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88/latest");
+}
