@@ -1,3 +1,4 @@
+let savedToDoList = [];
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
   const savedToDoList = JSON.parse(localStorage.getItem("my-todo"));
@@ -77,31 +78,24 @@ function tasksCount(arr) {
   spanCounter.innerText = count;
 }
 
-// !only when refreshing! Function that create to do task item and appending it to the html from the array located in the localStorage. . !only when refreshing!
-function addingTasksWhenContentLoaded(arr, number) {
+// !only when refreshing! Function that create to do task item and appending it to the html from the array located in JS file. !only when refreshing!
+function addingTasksWhenContentLoaded(arr) {
   const toDoListUL = document.getElementById("to-do-list");
   for (const item of arr) {
     const listItem = document.createElement("li");
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "todo-container");
-    let countClass = 1;
-    for (const property in item) {
-      const div = document.createElement("div");
-      if (countClass === 1) {
-        div.setAttribute("class", "todo-priority");
-      } else if (countClass === 2) {
-        div.setAttribute("class", "todo-created-at");
-      } else div.setAttribute("class", "todo-text");
-      countClass++;
-      div.innerText = item[property];
-      containerDiv.appendChild(div);
-    }
+
+    appendProperty(containerDiv, "todo-priority", item.priority);
+    appendProperty(containerDiv, "todo-created-at", item.date);
+    appendProperty(containerDiv, "todo-text", item.text);
+
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
   }
 
   // Changing the number of tasks in the html.
-  spanCounter.innerText = number;
+  spanCounter.innerText = arr.length;
 }
 
 // Function that create div and appending the div to his parent.
