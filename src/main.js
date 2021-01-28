@@ -1,10 +1,16 @@
 let savedToDoList = [];
+
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
-  const savedToDoList = JSON.parse(localStorage.getItem("my-todo"));
-  const savedCount = JSON.parse(localStorage.getItem("NumberOfTasks"));
-  if (savedToDoList === null) return;
-  addingTasksWhenContentLoaded(savedToDoList, savedCount);
+  // const savedToDoList = JSON.parse(localStorage.getItem('my-todo'));
+  getJsonBinData()
+    .then((response) => response.json())
+    .then((data) => {
+      savedToDoList = data.record["my-todo"];
+      if (savedToDoList === null) return;
+      addingTasksWhenContentLoaded(savedToDoList);
+    });
+  // const savedCount = JSON.parse(localStorage.getItem('NumberOfTasks'));
 });
 
 // main event
