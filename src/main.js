@@ -108,7 +108,7 @@ function appendProperty(divElement, className, innerText) {
 
 // Function that sort array of object
 function sortTheTasksByPriority() {
-  let sortedToDoList = JSON.parse(localStorage.getItem("my-todo"));
+  let sortedToDoList = savedToDoList;
   sortedToDoList.sort(function (a, b) {
     return b.priority - a.priority;
   });
@@ -118,9 +118,6 @@ function sortTheTasksByPriority() {
   const priorityArr = Array.from(document.querySelectorAll(".todo-priority"));
   toDoListUL.innerHTML = "";
   let j;
-  console.log(sortedToDoList[0].priority);
-  console.log(liArr);
-  console.log(priorityArr);
   for (const item of sortedToDoList) {
     for (let i = 0; i < priorityArr.length; i++) {
       if (item.priority === priorityArr[i].innerText) {
