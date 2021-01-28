@@ -28,22 +28,16 @@ function addingToDoTask() {
   const listItem = document.createElement("li");
   const containerDiv = document.createElement("div");
   containerDiv.setAttribute("class", "todo-container");
-  const priorityDiv = document.createElement("div");
-  priorityDiv.setAttribute("class", "todo-priority");
-  priorityDiv.innerText = inputPriority.value;
-  const dateDiv = document.createElement("div");
-  dateDiv.setAttribute("class", "todo-created-at");
-  dateDiv.innerText = timeCreation;
-  const textDiv = document.createElement("div");
-  textDiv.setAttribute("class", "todo-text");
-  textDiv.innerText = inputValue.value;
-  containerDiv.appendChild(priorityDiv);
-  containerDiv.appendChild(dateDiv);
-  containerDiv.appendChild(textDiv);
+
+  // Calling function that create div and appending the div to the containerDiv.
+  appendProperty(containerDiv, "todo-priority", inputPriority.value);
+  appendProperty(containerDiv, "todo-created-at", timeCreation);
+  appendProperty(containerDiv, "todo-text", inputValue.value);
+
   listItem.appendChild(containerDiv);
   toDoListUL.appendChild(listItem);
 
-  // Calling a function to store the text, priority and time in the localStorage
+  // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
 
   // Cleaning the text input.
@@ -108,6 +102,14 @@ function addingTasksWhenContentLoaded(arr, number) {
 
   // Changing the number of tasks in the html.
   spanCounter.innerText = number;
+}
+
+// Function that create div and appending the div to his parent.
+function appendProperty(divElement, className, innerText) {
+  const propertyDiv = document.createElement("div");
+  propertyDiv.setAttribute("class", className);
+  propertyDiv.innerText = innerText;
+  divElement.appendChild(propertyDiv);
 }
 
 // Function that sort array of object
