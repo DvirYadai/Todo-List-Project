@@ -1,13 +1,13 @@
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener('DOMContentLoaded', () => {
-    const savedToDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    const savedToDoList = JSON.parse(localStorage.getItem('my-todo'));
     const savedCount = JSON.parse(localStorage.getItem('NumberOfTasks'));
     if(savedToDoList === null)
         return;
-        addingTasksWhenContentLoaded(savedToDoList, savedCount);
+    addingTasksWhenContentLoaded(savedToDoList, savedCount);
 })
 
-// main event - 
+// main event 
 document.getElementById('add-button').addEventListener('click', addingToDoTask);
 document.getElementById('sort-button').addEventListener('click', sortTheTasksByPriority);
 let spanCounter = document.getElementById('counter');
@@ -56,11 +56,11 @@ function toDoTaskObjectCreationAndStorage(text, priority, time){
     };
 
     // Store the object in the localStorage
-    let toDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    let toDoList = JSON.parse(localStorage.getItem('my-todo'));
     if(toDoList === null)
         toDoList = [];
     toDoList.push(taskObject);
-    localStorage.setItem('ToDoList', JSON.stringify(toDoList));
+    localStorage.setItem('my-todo', JSON.stringify(toDoList));
 
     // Calling a function to count how much tasks i have and changing the number of tasks in the html accordingly.
     tasksCount(toDoList);
@@ -110,15 +110,30 @@ function addingTasksWhenContentLoaded(arr, number){
 
 // Function that sort array of object
 function sortTheTasksByPriority(){
-    let sortedToDoList = JSON.parse(localStorage.getItem('ToDoList'));
+    let sortedToDoList = JSON.parse(localStorage.getItem('my-todo'));
     sortedToDoList.sort(function(a, b) {
-        return parseFloat(a.priority) - parseFloat(b.priority);
+        return b.priority - a.priority;
     });
-    console.log(sortedToDoList);
-
-    const toDoList = document.getElementById('to-do-list');
-    for(let i = 0; i < sortedToDoList.length; i++){
-        
+    const toDoListUL = document.getElementById('to-do-list');
+    let newLi;
+    const liArr = Array.from(document.querySelectorAll('li'));
+    const priorityArr = Array.from(document.querySelectorAll('.todo-priority'));
+    toDoListUL.innerHTML = '';
+    let j;
+    console.log(sortedToDoList[0].priority);
+    console.log(liArr);
+    console.log(priorityArr);
+    for (const item of sortedToDoList) {
+        for(let i = 0; i < priorityArr.length; i++){
+            if(item.priority === priorityArr[i].innerText){
+                newLi = liArr[i];
+                j = i;
+                break;
+            }
+        }
+        toDoListUL.appendChild(newLi);
+        liArr.splice(j, 1);
+        priorityArr.splice(j, 1);
     }
 }
 
