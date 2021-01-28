@@ -45,7 +45,7 @@ function addingToDoTask() {
   inputValue.value = "";
 }
 
-// Function that create to do task object and store it in the localStorage.
+// Function that create to do task object and store it in the localStorage and in the JSONBIN.io.
 function toDoTaskObjectCreationAndStorage(text, priority, time) {
   // Creation of task object
   const taskObject = {
@@ -55,13 +55,17 @@ function toDoTaskObjectCreationAndStorage(text, priority, time) {
   };
 
   // Store the object in the localStorage
-  let toDoList = JSON.parse(localStorage.getItem("my-todo"));
-  if (toDoList === null) toDoList = [];
-  toDoList.push(taskObject);
-  localStorage.setItem("my-todo", JSON.stringify(toDoList));
+  let toDoListLocalStorage = JSON.parse(localStorage.getItem("my-todo"));
+  if (toDoListLocalStorage === null) toDoListLocalStorage = [];
+  toDoListLocalStorage.push(taskObject);
+  localStorage.setItem("my-todo", JSON.stringify(toDoListLocalStorage));
 
-  // Calling a function to count how much tasks i have and changing the number of tasks in the html accordingly.
-  tasksCount(toDoList);
+  // Store the object in the JSONBIN.io
+  savedToDoList.push(taskObject);
+  updateJsonBin(savedToDoList);
+
+  // Changing the counter
+  spanCounter.innerText = savedToDoList.length;
 }
 
 // Function that count how much tasks i have added to my to do list, adding the count to the localStorage and changing the number of tasks in the html.
