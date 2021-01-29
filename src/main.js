@@ -39,11 +39,11 @@ function addingToDoTask() {
   appendProperty(containerDiv, "todo-created-at", timeCreation);
   appendProperty(containerDiv, "todo-text", inputValue.value);
 
-  // Creating the delete button
-  deleteButtonCreation(listItem);
-
   listItem.appendChild(containerDiv);
   toDoListUL.appendChild(listItem);
+
+  // Creating the delete button
+  deleteButtonCreation(listItem);
 
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
@@ -87,11 +87,11 @@ function addingTasksWhenContentLoaded(arr) {
     appendProperty(containerDiv, "todo-created-at", item.date);
     appendProperty(containerDiv, "todo-text", item.text);
 
-    // Creating the delete button
-    deleteButtonCreation(listItem);
-
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
+
+    // Creating the delete button
+    deleteButtonCreation(listItem);
   }
 
   // Changing the number of tasks in the html.
@@ -106,11 +106,31 @@ function appendProperty(divElement, className, innerText) {
   divElement.appendChild(propertyDiv);
 }
 
-// Function that create the delete button
+// Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
 function deleteButtonCreation(liParent) {
   const deleteButton = document.createElement("i");
   deleteButton.setAttribute("class", "fas fa-trash-alt");
   liParent.appendChild(deleteButton);
+
+  // Add click event to the button
+  deleteButton.addEventListener("click", () => {
+    const textDiv = liParent.querySelector("div.todo-container div.todo-text");
+    let index = 0;
+    for (let i = 0; i < savedToDoList.length; i++) {
+      if (savedToDoList[i].text === textDiv.innerText) index = i;
+    }
+    savedToDoList.splice(index, 1);
+    deleteButton.parentElement.remove();
+
+    // Updating the number of tasks in the html.
+    spanCounter.innerText = savedToDoList.length;
+
+    // Updating the localStorage
+    localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
+
+    // Updating the JSONBIN.io
+    updateJsonBin(savedToDoList);
+  });
 }
 
 // Function that sort array of object
