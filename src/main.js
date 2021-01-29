@@ -40,10 +40,8 @@ function addingToDoTask() {
   appendProperty(containerDiv, "todo-text", inputValue.value);
 
   // Creating the delete button
-  const deleteButton = document.createElement("i");
-  deleteButton.setAttribute("class", "fas fa-trash-alt");
+  deleteButtonCreation(listItem);
 
-  listItem.appendChild(deleteButton);
   listItem.appendChild(containerDiv);
   toDoListUL.appendChild(listItem);
 
@@ -89,6 +87,9 @@ function addingTasksWhenContentLoaded(arr) {
     appendProperty(containerDiv, "todo-created-at", item.date);
     appendProperty(containerDiv, "todo-text", item.text);
 
+    // Creating the delete button
+    deleteButtonCreation(listItem);
+
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
   }
@@ -103,6 +104,13 @@ function appendProperty(divElement, className, innerText) {
   propertyDiv.setAttribute("class", className);
   propertyDiv.innerText = innerText;
   divElement.appendChild(propertyDiv);
+}
+
+// Function that create the delete button
+function deleteButtonCreation(liParent) {
+  const deleteButton = document.createElement("i");
+  deleteButton.setAttribute("class", "fas fa-trash-alt");
+  liParent.appendChild(deleteButton);
 }
 
 // Function that sort array of object
