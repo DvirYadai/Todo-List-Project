@@ -10,7 +10,7 @@ window.addEventListener("DOMContentLoaded", () => {
       addingTasksWhenContentLoaded(savedToDoList);
     });
 });
-console.log(savedToDoList);
+
 // main events
 document.getElementById("add-button").addEventListener("click", addingToDoTask);
 document
@@ -39,6 +39,11 @@ function addingToDoTask() {
   appendProperty(containerDiv, "todo-created-at", timeCreation);
   appendProperty(containerDiv, "todo-text", inputValue.value);
 
+  // Creating the delete button
+  const deleteButton = document.createElement("i");
+  deleteButton.setAttribute("class", "fas fa-trash-alt");
+
+  listItem.appendChild(deleteButton);
   listItem.appendChild(containerDiv);
   toDoListUL.appendChild(listItem);
 
