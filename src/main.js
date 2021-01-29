@@ -35,15 +35,15 @@ function addingToDoTask() {
   containerDiv.setAttribute("class", "todo-container");
 
   // Calling function that create div and appending the div to the containerDiv.
+  appendProperty(containerDiv, "todo-text", inputValue.value);
   appendProperty(containerDiv, "todo-priority", inputPriority.value);
   appendProperty(containerDiv, "todo-created-at", timeCreation);
-  appendProperty(containerDiv, "todo-text", inputValue.value);
 
   listItem.appendChild(containerDiv);
   toDoListUL.appendChild(listItem);
 
   // Creating the delete button
-  deleteButtonCreation(listItem);
+  deleteButtonCreation(containerDiv);
 
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
@@ -83,15 +83,15 @@ function addingTasksWhenContentLoaded(arr) {
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("class", "todo-container");
 
+    appendProperty(containerDiv, "todo-text", item.text);
     appendProperty(containerDiv, "todo-priority", item.priority);
     appendProperty(containerDiv, "todo-created-at", item.date);
-    appendProperty(containerDiv, "todo-text", item.text);
 
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
 
     // Creating the delete button
-    deleteButtonCreation(listItem);
+    deleteButtonCreation(containerDiv);
   }
 
   // Changing the number of tasks in the html.
@@ -107,20 +107,20 @@ function appendProperty(divElement, className, innerText) {
 }
 
 // Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
-function deleteButtonCreation(liParent) {
+function deleteButtonCreation(divParent) {
   const deleteButton = document.createElement("i");
   deleteButton.setAttribute("class", "fas fa-trash-alt");
-  liParent.appendChild(deleteButton);
+  divParent.appendChild(deleteButton);
 
   // Add click event to the button
   deleteButton.addEventListener("click", () => {
-    const textDiv = liParent.querySelector("div.todo-container div.todo-text");
+    const textDiv = divParent.querySelector("div.todo-text");
     let index = 0;
     for (let i = 0; i < savedToDoList.length; i++) {
       if (savedToDoList[i].text === textDiv.innerText) index = i;
     }
     savedToDoList.splice(index, 1);
-    deleteButton.parentElement.remove();
+    deleteButton.parentElement.parentElement.remove();
 
     // Updating the number of tasks in the html.
     spanCounter.innerText = savedToDoList.length;

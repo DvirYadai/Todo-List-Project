@@ -56,7 +56,7 @@ body::after {
   position: relative;
   z-index: 1;
   max-height: max-content;
-  border: 1px solid gray;
+  border: 1px solid rgb(236, 139, 139);
   border-radius: 5px;
   margin: 10rem;
   min-width: 95vmin;
@@ -150,12 +150,11 @@ p {
 }
 
 li {
-  display: flex;
-  justify-content: center;
   margin-bottom: 1rem;
   border: 1px solid gray;
   border-radius: 5px;
-  padding: 0.5rem 0 0.5rem 0;
+  padding: 1rem 0 1rem 0;
+  list-style: none;
 }
 
 .todo-container {
@@ -163,6 +162,10 @@ li {
   justify-content: space-evenly;
 }
 
-.todo-container div {
-  margin-right: 2rem;
+i {
+  cursor: pointer;
 }
+
+/* .todo-container div {
+  margin-right: 2rem;
+} */
