@@ -2,7 +2,6 @@ let savedToDoList = [];
 
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
-  // const savedToDoList = JSON.parse(localStorage.getItem('my-todo'));
   getJsonBinData()
     .then((response) => response.json())
     .then((data) => {
@@ -10,10 +9,9 @@ window.addEventListener("DOMContentLoaded", () => {
       if (savedToDoList === null) return;
       addingTasksWhenContentLoaded(savedToDoList);
     });
-  // const savedCount = JSON.parse(localStorage.getItem('NumberOfTasks'));
 });
-
-// main event
+console.log(savedToDoList);
+// main events
 document.getElementById("add-button").addEventListener("click", addingToDoTask);
 document
   .getElementById("sort-button")
@@ -74,20 +72,6 @@ function toDoTaskObjectCreationAndStorage(text, priority, time) {
   spanCounter.innerText = savedToDoList.length;
 }
 
-// Function that count how much tasks i have added to my to do list, adding the count to the localStorage and changing the number of tasks in the html.
-function tasksCount(arr) {
-  // Counting how much tasks i have added.
-  let count = JSON.parse(localStorage.getItem("NumberOfTasks"));
-  count = 0;
-  for (let i = 0; i < arr.length; i++) count++;
-
-  // Adding the count to the localStorage.
-  localStorage.setItem("NumberOfTasks", JSON.stringify(count));
-
-  // Changing the number of tasks in the html.
-  spanCounter.innerText = count;
-}
-
 // !only when refreshing! Function that create to do task item and appending it to the html from the array located in JS file. !only when refreshing!
 function addingTasksWhenContentLoaded(arr) {
   const toDoListUL = document.getElementById("to-do-list");
@@ -142,7 +126,7 @@ function sortTheTasksByPriority() {
   }
 }
 
-// Updating the JSONBIN.io.
+// Function that updating the JSONBIN.io.
 function updateJsonBin(toDoListArr) {
   fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88", {
     method: "PUT",
@@ -153,6 +137,7 @@ function updateJsonBin(toDoListArr) {
   });
 }
 
+// Function that returning the data from the server
 function getJsonBinData() {
   return fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88/latest");
 }
