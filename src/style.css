@@ -137,6 +137,11 @@ h1 {
   color: white;
 }
 
+.fa-undo {
+  position: relative;
+  left: 27%;
+}
+
 p {
   margin: 1.5rem 0.5rem 0.5rem 0.5rem;
   position: relative;

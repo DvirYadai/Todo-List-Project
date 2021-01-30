@@ -16,6 +16,7 @@ document.getElementById("add-button").addEventListener("click", addingToDoTask);
 document
   .getElementById("sort-button")
   .addEventListener("click", sortTheTasksByPriority);
+document.getElementById("undo-button").addEventListener("click", undo);
 let spanCounter = document.getElementById("counter");
 
 // Function that create to do task item and appending it to the html.
@@ -125,6 +126,14 @@ function deleteButtonCreation(divParent) {
     for (let i = 0; i < savedToDoList.length; i++) {
       if (savedToDoList[i].text === textDiv.innerText) index = i;
     }
+
+    // Adding the data that was delete to the changeDataArr for the undo function.
+    let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
+    if (changeDataArr === null) changeDataArr = [];
+    changeDataArr.push(savedToDoList[index]);
+    console.log(changeDataArr);
+    localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
+
     savedToDoList.splice(index, 1);
     deleteButton.parentElement.parentElement.remove();
 
@@ -150,10 +159,10 @@ function editButtonCreation(divParent) {
 
   // Add click event to the button
   editButton.addEventListener("click", () => {
-    divParent.removeChild(editButton);
-    divParent.appendChild(checkButton);
     const textDiv = divParent.querySelector("div.todo-text");
     const priorityDiv = divParent.querySelector("div.todo-priority");
+    divParent.removeChild(editButton);
+    divParent.appendChild(checkButton);
     textDiv.contentEditable = true;
     textDiv.classList.toggle("edit");
     textDiv.focus();
@@ -164,7 +173,15 @@ function editButtonCreation(divParent) {
       if (savedToDoList[i].text === textDiv.innerText) index = i;
     }
 
-    // Add enter key event to close the edit option.
+    // Adding the data that was edit to the changeDataArr for the undo function.
+    let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
+    if (changeDataArr === null) changeDataArr = [];
+    changeDataArr.push({
+      text: textDiv.innerText,
+      priority: priorityDiv.innerText,
+    });
+
+    // Add click event to close the edit option.
     checkButton.addEventListener("click", () => {
       textDiv.contentEditable = false;
       textDiv.classList.remove("edit");
@@ -172,6 +189,11 @@ function editButtonCreation(divParent) {
       priorityDiv.classList.remove("edit");
       divParent.removeChild(checkButton);
       divParent.appendChild(editButton);
+
+      // Adding more data to the changeDataArr for the undo function.
+      changeDataArr[changeDataArr.length - 1].newText = textDiv.innerText;
+      console.log(changeDataArr);
+      localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 
       // Update the innerText of the div in the localStorage and JSONBIN.io
       savedToDoList[index].text = textDiv.innerText;
@@ -206,6 +228,67 @@ function sortTheTasksByPriority() {
     liArr.splice(j, 1);
     priorityArr.splice(j, 1);
   }
+}
+
+// Function that undo the last change
+function undo() {
+  // Getting the array with the saved changes.
+  let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
+
+  // Checking if the last change was delete or edit.
+  if (changeDataArr[changeDataArr.length - 1].date) {
+    // Creating new li, appending it with the deleted data and appending the li to the html.
+    const toDoListUL = document.getElementById("to-do-list");
+    const listItem = document.createElement("li");
+    const containerDiv = document.createElement("div");
+    containerDiv.setAttribute("class", "todo-container");
+    appendProperty(
+      containerDiv,
+      "todo-text",
+      changeDataArr[changeDataArr.length - 1].text
+    );
+    appendProperty(
+      containerDiv,
+      "todo-priority",
+      changeDataArr[changeDataArr.length - 1].priority
+    );
+    appendProperty(
+      containerDiv,
+      "todo-created-at",
+      changeDataArr[changeDataArr.length - 1].date
+    );
+    deleteButtonCreation(containerDiv);
+    editButtonCreation(containerDiv);
+    listItem.appendChild(containerDiv);
+    toDoListUL.appendChild(listItem);
+    savedToDoList.push(changeDataArr[changeDataArr.length - 1]);
+  } else {
+    // Checking in which li was the editing and revers the edit outcome.
+    let index = 0;
+    for (let i = 0; i < savedToDoList.length; i++) {
+      if (
+        savedToDoList[i].text ===
+        changeDataArr[changeDataArr.length - 1].newText
+      )
+        index = i;
+    }
+    savedToDoList[index].text = changeDataArr[changeDataArr.length - 1].text;
+    savedToDoList[index].priority =
+      changeDataArr[changeDataArr.length - 1].priority;
+    const textDiv = document.querySelector(
+      `#to-do-list > li:nth-child(${index + 1}) > div > div.todo-text`
+    );
+    const priorityDiv = document.querySelector(
+      `#to-do-list > li:nth-child(${index + 1}) > div > div.todo-priority`
+    );
+    textDiv.innerText = changeDataArr[changeDataArr.length - 1].text;
+    priorityDiv.innerText = changeDataArr[changeDataArr.length - 1].priority;
+  }
+  // Updating the localStorage and JSONBIN.io with the undo changes and deleting the last change from the changeDataArr.
+  localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
+  updateJsonBin(savedToDoList);
+  changeDataArr.splice(changeDataArr.length - 1, 1);
+  localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 }
 
 // Function that updating the JSONBIN.io.
