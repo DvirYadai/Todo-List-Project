@@ -169,3 +169,17 @@ i {
 i:hover {
   transform: scale(0.8);
 }
+
+.todo-text.edit {
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 15%;
+  padding: 0.3rem 0 0.3rem 0;
+}
+
+.todo-priority.edit {
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 30px;
+  padding-top: 5px;
+}

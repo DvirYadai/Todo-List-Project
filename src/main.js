@@ -145,42 +145,39 @@ function editButtonCreation(divParent) {
   editButton.setAttribute("class", "fas fa-edit");
   divParent.appendChild(editButton);
 
+  const checkButton = document.createElement("i");
+  checkButton.setAttribute("class", "far fa-check-circle");
+
   // Add click event to the button
   editButton.addEventListener("click", () => {
+    divParent.removeChild(editButton);
+    divParent.appendChild(checkButton);
     const textDiv = divParent.querySelector("div.todo-text");
     const priorityDiv = divParent.querySelector("div.todo-priority");
     textDiv.contentEditable = true;
-    textDiv.style.border = "1px solid grey";
-    textDiv.style.borderRadius = "5px";
-    textDiv.style.width = "15%";
-    textDiv.style.padding = "0.3rem 0 0.3rem 0";
+    textDiv.classList.toggle("edit");
     textDiv.focus();
     priorityDiv.contentEditable = true;
-    priorityDiv.style.border = "1px solid grey";
-    priorityDiv.style.borderRadius = "5px";
-    priorityDiv.style.width = "30px";
-    priorityDiv.style.paddingTop = "5px";
+    priorityDiv.classList.toggle("edit");
     let index = 0;
     for (let i = 0; i < savedToDoList.length; i++) {
       if (savedToDoList[i].text === textDiv.innerText) index = i;
     }
 
     // Add enter key event to close the edit option.
-    addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        textDiv.contentEditable = false;
-        textDiv.style.border = "none";
-        textDiv.style.padding = "initial";
-        priorityDiv.contentEditable = false;
-        priorityDiv.style.border = "none";
-        priorityDiv.style.padding = "initial";
+    checkButton.addEventListener("click", () => {
+      textDiv.contentEditable = false;
+      textDiv.classList.remove("edit");
+      priorityDiv.contentEditable = false;
+      priorityDiv.classList.remove("edit");
+      divParent.removeChild(checkButton);
+      divParent.appendChild(editButton);
 
-        // Update the innerText of the div in the localStorage and JSONBIN.io
-        savedToDoList[index].text = textDiv.innerText;
-        savedToDoList[index].priority = priorityDiv.innerText;
-        localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
-        updateJsonBin(savedToDoList);
-      }
+      // Update the innerText of the div in the localStorage and JSONBIN.io
+      savedToDoList[index].text = textDiv.innerText;
+      savedToDoList[index].priority = priorityDiv.innerText;
+      localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
+      updateJsonBin(savedToDoList);
     });
   });
 }
