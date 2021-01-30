@@ -45,6 +45,9 @@ function addingToDoTask() {
   // Creating the delete button
   deleteButtonCreation(containerDiv);
 
+  // Creating the edit button
+  editButtonCreation(containerDiv);
+
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
 
@@ -92,6 +95,9 @@ function addingTasksWhenContentLoaded(arr) {
 
     // Creating the delete button
     deleteButtonCreation(containerDiv);
+
+    // Creating the edit button
+    editButtonCreation(containerDiv);
   }
 
   // Changing the number of tasks in the html.
@@ -130,6 +136,52 @@ function deleteButtonCreation(divParent) {
 
     // Updating the JSONBIN.io
     updateJsonBin(savedToDoList);
+  });
+}
+
+// Function that create the edit button, adding click events and updating the localStorage and the JSONBIN.io
+function editButtonCreation(divParent) {
+  const editButton = document.createElement("i");
+  editButton.setAttribute("class", "fas fa-edit");
+  divParent.appendChild(editButton);
+
+  // Add click event to the button
+  editButton.addEventListener("click", () => {
+    const textDiv = divParent.querySelector("div.todo-text");
+    const priorityDiv = divParent.querySelector("div.todo-priority");
+    textDiv.contentEditable = true;
+    textDiv.style.border = "1px solid grey";
+    textDiv.style.borderRadius = "5px";
+    textDiv.style.width = "15%";
+    textDiv.style.padding = "0.3rem 0 0.3rem 0";
+    textDiv.focus();
+    priorityDiv.contentEditable = true;
+    priorityDiv.style.border = "1px solid grey";
+    priorityDiv.style.borderRadius = "5px";
+    priorityDiv.style.width = "30px";
+    priorityDiv.style.paddingTop = "5px";
+    let index = 0;
+    for (let i = 0; i < savedToDoList.length; i++) {
+      if (savedToDoList[i].text === textDiv.innerText) index = i;
+    }
+
+    // Add enter key event to close the edit option.
+    addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        textDiv.contentEditable = false;
+        textDiv.style.border = "none";
+        textDiv.style.padding = "initial";
+        priorityDiv.contentEditable = false;
+        priorityDiv.style.border = "none";
+        priorityDiv.style.padding = "initial";
+
+        // Update the innerText of the div in the localStorage and JSONBIN.io
+        savedToDoList[index].text = textDiv.innerText;
+        savedToDoList[index].priority = priorityDiv.innerText;
+        localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
+        updateJsonBin(savedToDoList);
+      }
+    });
   });
 }
 

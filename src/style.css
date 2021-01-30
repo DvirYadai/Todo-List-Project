@@ -56,7 +56,7 @@ body::after {
   position: relative;
   z-index: 1;
   max-height: max-content;
-  border: 1px solid rgb(236, 139, 139);
+  /* border: 1px solid rgb(236, 139, 139); */
   border-radius: 5px;
   margin: 10rem;
   min-width: 95vmin;
@@ -102,12 +102,12 @@ h1 {
 #text-input {
   background: transparent;
   border-radius: 20px;
-  width: 50%;
+  width: 25vmax;
   padding: 10px;
   border: solid #0a60d8 1px;
   font-size: 1rem;
   position: relative;
-  right: 8%;
+  right: 5%;
 }
 
 #priority-selector {
@@ -166,6 +166,6 @@ i {
   cursor: pointer;
 }
 
-/* .todo-container div {
-  margin-right: 2rem;
-} */
+i:hover {
+  transform: scale(0.8);
+}
