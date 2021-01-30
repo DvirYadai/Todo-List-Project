@@ -2,12 +2,14 @@ let savedToDoList = [];
 
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
+  displayLoading();
   getJsonBinData()
     .then((response) => response.json())
     .then((data) => {
       savedToDoList = data.record["my-todo"];
       if (savedToDoList === null) return;
       addingTasksWhenContentLoaded(savedToDoList);
+      hideLoading();
     });
 });
 
@@ -23,6 +25,11 @@ let spanCounter = document.getElementById("counter");
 function addingToDoTask() {
   const inputValue = document.getElementById("text-input");
   const inputPriority = document.getElementById("priority-selector");
+  console.log(inputPriority.value);
+  if (inputValue.value === "" || inputPriority.value === "") {
+    alert("Please enter your task and priority");
+    return;
+  }
   let timeCreation = new Date();
   timeCreation =
     timeCreation.toISOString().split("T")[0] +
@@ -111,6 +118,9 @@ function appendProperty(divElement, className, innerText) {
   propertyDiv.setAttribute("class", className);
   propertyDiv.innerText = innerText;
   divElement.appendChild(propertyDiv);
+  if (className === "todo-priority") {
+    propertyDiv.setAttribute("onkeypress", "return (this.type = number)");
+  }
 }
 
 // Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
@@ -291,7 +301,7 @@ function undo() {
 
 // Function that updating the JSONBIN.io.
 function updateJsonBin(toDoListArr) {
-  fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88", {
+  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -302,5 +312,17 @@ function updateJsonBin(toDoListArr) {
 
 // Function that returning the data from the server
 function getJsonBinData() {
-  return fetch("https://api.jsonbin.io/v3/b/6012ca546bdb326ce4bc6c88/latest");
+  return fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa/latest");
+}
+
+// showing loading
+function displayLoading() {
+  const loader = document.querySelector("#loading");
+  loader.classList.add("display");
+}
+
+// hiding loading
+function hideLoading() {
+  const loader = document.querySelector("#loading");
+  loader.classList.remove("display");
 }
