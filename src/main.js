@@ -131,7 +131,6 @@ function deleteButtonCreation(divParent) {
     let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
     if (changeDataArr === null) changeDataArr = [];
     changeDataArr.push(savedToDoList[index]);
-    console.log(changeDataArr);
     localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 
     savedToDoList.splice(index, 1);
@@ -192,7 +191,6 @@ function editButtonCreation(divParent) {
 
       // Adding more data to the changeDataArr for the undo function.
       changeDataArr[changeDataArr.length - 1].newText = textDiv.innerText;
-      console.log(changeDataArr);
       localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 
       // Update the innerText of the div in the localStorage and JSONBIN.io
