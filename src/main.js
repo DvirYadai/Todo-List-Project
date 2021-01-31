@@ -191,13 +191,19 @@ function editButtonCreation(divParent) {
 
   const checkButton = document.createElement("i");
   checkButton.setAttribute("class", "far fa-check-circle");
+  divParent.appendChild(checkButton);
+  checkButton.style.position = "absolute";
+  checkButton.style.display = "none";
 
   // Add click event to the button
   editButton.addEventListener("click", () => {
     const textDiv = divParent.querySelector("div.todo-text");
     const priorityDiv = divParent.querySelector("div.todo-priority");
-    divParent.removeChild(editButton);
-    divParent.appendChild(checkButton);
+    editButton.style.position = "absolute";
+    editButton.style.display = "none";
+    checkButton.style.position = "unset";
+    checkButton.style.display = "inline";
+
     textDiv.contentEditable = true;
     textDiv.classList.toggle("edit");
     textDiv.focus();
@@ -222,8 +228,10 @@ function editButtonCreation(divParent) {
       textDiv.classList.remove("edit");
       priorityDiv.contentEditable = false;
       priorityDiv.classList.remove("edit");
-      divParent.removeChild(checkButton);
-      divParent.appendChild(editButton);
+      editButton.style.position = "unset";
+      editButton.style.display = "inline";
+      checkButton.style.position = "absolute";
+      checkButton.style.display = "none";
 
       // Adding more data to the changeDataArr for the undo function.
       changeDataArr[changeDataArr.length - 1].newText = textDiv.innerText;

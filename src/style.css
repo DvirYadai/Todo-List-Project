@@ -225,14 +225,16 @@ li {
 
 .fa-trash-alt,
 .fa-edit,
-.fa-undo {
+.fa-undo,
+.fa-check-circle {
   cursor: pointer;
   padding-top: 0.2rem;
 }
 
 .fa-trash-alt:hover,
 .fa-edit:hover,
-.fa-undo:hover {
+.fa-undo:hover,
+.fa-check-circle:hover {
   transform: scale(0.8);
 }
 
