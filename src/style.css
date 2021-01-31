@@ -183,6 +183,11 @@ i:hover {
   transform: scale(0.8);
 }
 
+.todo-text {
+  width: 45%;
+  word-break: break-all;
+}
+
 .todo-text.edit {
   border: 1px solid grey;
   border-radius: 5px;
