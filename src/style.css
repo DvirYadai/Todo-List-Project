@@ -354,4 +354,12 @@ input[type="checkbox"] {
     top: 0.1rem;
     transform: scale(1);
   }
+
+  #links a:hover::before {
+    border: none;
+  }
+
+  #links a:hover::after {
+    border: none;
+  }
 }
