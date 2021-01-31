@@ -92,6 +92,7 @@ function toDoTaskObjectCreationAndStorage(text, priority, time) {
     priority: priority.value,
     date: time,
     text: text.value,
+    isDone: false,
   };
 
   // Store the object in the localStorage
@@ -131,6 +132,13 @@ function addingTasksWhenContentLoaded(arr) {
 
     // Creating the checkbox
     checkBoxCreation(containerDiv);
+
+    // Checking if the task is already finished
+    if (item.isDone === true) {
+      listItem.setAttribute("class", "done");
+      const checkbox = listItem.querySelector("#checkbox");
+      checkbox.checked = true;
+    }
   }
 
   // Changing the number of tasks in the html.
@@ -262,9 +270,23 @@ function checkBoxCreation(divParent) {
 
   checkBox.addEventListener("click", () => {
     if (checkBox.checked === true) {
-      divParent.parentElement.style.opacity = "0.3";
+      divParent.parentElement.setAttribute("class", "done");
+      let text = divParent.querySelector(".todo-text");
+      for (let i = 0; i < savedToDoList.length; i++) {
+        if (text.innerText === savedToDoList[i].text) {
+          savedToDoList[i].isDone = true;
+          updateJsonBin(savedToDoList);
+        }
+      }
     } else {
-      divParent.parentElement.style.opacity = "1";
+      divParent.parentElement.removeAttribute("class", "done");
+      let text = divParent.querySelector(".todo-text");
+      for (let i = 0; i < savedToDoList.length; i++) {
+        if (text.innerText === savedToDoList[i].text) {
+          savedToDoList[i].isDone = false;
+          updateJsonBin(savedToDoList);
+        }
+      }
     }
   });
 }

@@ -214,6 +214,10 @@ li {
   position: relative;
 }
 
+.done {
+  opacity: 0.3;
+}
+
 .todo-container {
   display: flex;
   justify-content: space-evenly;
