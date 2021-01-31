@@ -21,20 +21,19 @@ document
 document.getElementById("undo-button").addEventListener("click", undo);
 document.getElementById("search-button").addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    const searchButton = document.querySelector("#search-button");
-    console.log(searchButton.value);
-    const textArr = Array.from(document.querySelectorAll(".todo-text"));
-    let index;
-    for (let i = 0; i < textArr.length; i++) {
-      if (searchButton.value === textArr[i].innerText) index = i;
-    }
-    const lis = Array.from(
-      document.querySelectorAll(
-        `#to-do-list > li:not(:nth-child(${index + 1}))`
-      )
-    );
-    for (let i = 0; i < lis.length; i++) {
-      lis[i].setAttribute("class", "search");
+    const searchButton = document.getElementById("search-button");
+    const searched = document.getElementById("search-button").value.trim();
+    if (searched !== "") {
+      let text = Array.from(document.querySelectorAll(".todo-text"));
+      let re = new RegExp(searched, "g");
+      let newText = [];
+      for (let i = 0; i < text.length; i++) {
+        newText.push(text[i].innerHTML.replace(re, `<mark>${searched}</mark>`));
+      }
+      let currentText = Array.from(document.querySelectorAll(".todo-text"));
+      for (let i = 0; i < currentText.length; i++) {
+        currentText[i].innerHTML = newText[i];
+      }
     }
     searchButton.value = "";
   }
