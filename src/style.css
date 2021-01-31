@@ -250,6 +250,11 @@ i:hover {
   padding-top: 0.2rem;
 }
 
+input[type="checkbox"] {
+  margin-top: 0.5rem;
+  transform: scale(1.5);
+}
+
 #loading {
   width: 3rem;
   height: 3rem;

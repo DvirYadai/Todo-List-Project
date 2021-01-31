@@ -76,6 +76,9 @@ function addingToDoTask() {
   // Creating the edit button
   editButtonCreation(containerDiv);
 
+  // Creating the checkbox
+  checkBoxCreation(containerDiv);
+
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
 
@@ -126,6 +129,9 @@ function addingTasksWhenContentLoaded(arr) {
 
     // Creating the edit button
     editButtonCreation(containerDiv);
+
+    // Creating the checkbox
+    checkBoxCreation(containerDiv);
   }
 
   // Changing the number of tasks in the html.
@@ -230,6 +236,13 @@ function editButtonCreation(divParent) {
       updateJsonBin(savedToDoList);
     });
   });
+}
+
+// Function that add the checkbox to the task
+function checkBoxCreation(divParent) {
+  const checkBox = document.createElement("input");
+  checkBox.setAttribute("type", "checkbox");
+  divParent.appendChild(checkBox);
 }
 
 // Function that sort array of object
