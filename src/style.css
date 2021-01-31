@@ -211,6 +211,7 @@ li {
   font-family: "Yusei Magic", sans-serif;
   font-size: 1.3rem;
   transition: opacity 1s;
+  position: relative;
 }
 
 .search {
@@ -251,8 +252,16 @@ i:hover {
 }
 
 input[type="checkbox"] {
-  margin-top: 0.5rem;
+  position: relative;
+  top: 0.5rem;
   transform: scale(1.5);
+}
+
+.line {
+  position: absolute;
+  top: 50%;
+  border-bottom: 1px solid black;
+  width: 60%;
 }
 
 #loading {

@@ -238,11 +238,20 @@ function editButtonCreation(divParent) {
   });
 }
 
-// Function that add the checkbox to the task
+// Function that add checkbox to the task
 function checkBoxCreation(divParent) {
   const checkBox = document.createElement("input");
   checkBox.setAttribute("type", "checkbox");
+  checkBox.setAttribute("id", "checkbox");
   divParent.appendChild(checkBox);
+
+  checkBox.addEventListener("click", () => {
+    if (checkBox.checked === true) {
+      divParent.parentElement.style.opacity = "0.3";
+    } else {
+      divParent.parentElement.style.opacity = "1";
+    }
+  });
 }
 
 // Function that sort array of object
