@@ -70,6 +70,7 @@ body::after {
 h1 {
   margin-bottom: 3rem;
   font-size: 4rem;
+  font-family: "Hachi Maru Pop", cursive;
 }
 
 #sort-button {
@@ -164,6 +165,8 @@ li {
   padding: 1rem 0 1rem 0;
   list-style: none;
   background: rgba(130, 131, 131, 0.5);
+  font-family: "Yusei Magic", sans-serif;
+  font-size: 1.3rem;
 }
 
 .todo-container {
@@ -173,6 +176,7 @@ li {
 
 i {
   cursor: pointer;
+  padding-top: 5px;
 }
 
 i:hover {
