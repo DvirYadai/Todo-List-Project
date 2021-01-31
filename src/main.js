@@ -223,6 +223,14 @@ function editButtonCreation(divParent) {
 
     // Add click event to close the edit option.
     checkButton.addEventListener("click", () => {
+      if (
+        priorityDiv.innerText < 1 ||
+        priorityDiv.innerText > 5 ||
+        priorityDiv.innerText.match(/[a-z]/i)
+      ) {
+        alert("Priotity must be a number from 1 to 5");
+        return;
+      }
       textDiv.contentEditable = false;
       textDiv.classList.remove("edit");
       priorityDiv.contentEditable = false;
