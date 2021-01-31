@@ -309,6 +309,7 @@ function undo() {
     );
     deleteButtonCreation(containerDiv);
     editButtonCreation(containerDiv);
+    checkBoxCreation(containerDiv);
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
     savedToDoList.push(changeDataArr[changeDataArr.length - 1]);
