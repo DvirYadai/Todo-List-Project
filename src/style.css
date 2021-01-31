@@ -337,3 +337,21 @@ input[type="checkbox"] {
   border-bottom: 4px solid;
   transform: skewY(-20deg);
 }
+
+@media screen and (max-width: 600px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  html {
+    font-size: 8px;
+  }
+
+  input[type="checkbox"] {
+    position: relative;
+    top: 0.1rem;
+    transform: scale(1);
+  }
+}
