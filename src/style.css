@@ -67,6 +67,10 @@ body::after {
   padding: 1rem;
 }
 
+#control-section {
+  position: relative;
+}
+
 h1 {
   margin-bottom: 3rem;
   font-size: 4rem;
@@ -87,6 +91,7 @@ h1 {
   cursor: pointer;
   position: relative;
   left: 23%;
+  outline: none;
 }
 
 #sort-button:hover {
@@ -115,7 +120,7 @@ h1 {
   border: solid #0a60d8 1px;
   font-size: 0.9rem;
   position: relative;
-  margin: auto 2rem auto 1rem;
+  margin: auto 2rem 1.5rem 1rem;
 }
 
 #add-button {
@@ -128,6 +133,7 @@ h1 {
   border: solid #337fed 1px;
   text-decoration: none;
   cursor: pointer;
+  outline: none;
 }
 
 #add-button:hover {
@@ -150,9 +156,9 @@ p {
 
 #search-div {
   display: inline;
-  position: fixed;
-  bottom: 55%;
-  right: 43%;
+  position: absolute;
+  top: 85%;
+  right: 32%;
 }
 
 #search-div::after {
