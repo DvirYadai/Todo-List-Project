@@ -78,7 +78,7 @@ h1 {
   border-radius: 20px;
   color: #000000;
   font-size: 1rem;
-  padding: 8px;
+  padding: 0.5rem;
   width: 15%;
   box-shadow: 1px 1px 20px 0 #000000;
   text-shadow: 1px 1px 20px #000000;
@@ -92,13 +92,6 @@ h1 {
 #sort-button:hover {
   border: solid #8bb2eb 1px;
   background: #6398ef;
-  background-image: -webkit-linear-gradient(top, #6398ef, #63a8f5);
-  background-image: -moz-linear-gradient(top, #6398ef, #63a8f5);
-  background-image: -ms-linear-gradient(top, #6398ef, #63a8f5);
-  background-image: -o-linear-gradient(top, #6398ef, #63a8f5);
-  background-image: -webkit-gradient(to bottom, #6398ef, #63a8f5);
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
   border-radius: 20px;
   text-decoration: none;
 }
@@ -107,17 +100,18 @@ h1 {
   background: transparent;
   border-radius: 20px;
   width: 25vmax;
-  padding: 10px;
+  padding: 0.7rem;
   border: solid #0a60d8 1px;
   font-size: 1rem;
   position: relative;
   right: 5%;
+  outline: none;
 }
 
 #priority-selector {
   background: transparent;
   border-radius: 20px;
-  padding: 5px;
+  padding: 0.4rem;
   border: solid #0a60d8 1px;
   font-size: 0.9rem;
   position: relative;
@@ -128,8 +122,8 @@ h1 {
   background: transparent;
   border-radius: 50%;
   color: #000000;
-  width: 40px;
-  height: 40px;
+  width: 2.5rem;
+  height: 2.5rem;
   font-size: 1.5rem;
   border: solid #337fed 1px;
   text-decoration: none;
@@ -154,6 +148,49 @@ p {
   display: inline-block;
 }
 
+#search-div {
+  display: inline;
+  position: fixed;
+  bottom: 55%;
+  right: 43%;
+}
+
+#search-div::after {
+  content: "";
+  background-color: rgb(5, 91, 161);
+  width: 0.25rem;
+  height: 0.8rem;
+  position: absolute;
+  top: 80%;
+  right: 1%;
+  transform: rotate(135deg);
+}
+
+#search-div > input {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 35px;
+  background: transparent;
+  border: 3px solid rgb(5, 91, 161);
+  outline: none;
+  transition: width 0.5s;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+#search-div > input:focus {
+  width: 15rem;
+}
+
+#search-div > input::placeholder {
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+}
+
+#search-div > input:focus::placeholder {
+  opacity: 1;
+}
+
 #view-section {
   margin-top: 1rem;
 }
@@ -167,6 +204,11 @@ li {
   background: rgba(130, 131, 131, 0.5);
   font-family: "Yusei Magic", sans-serif;
   font-size: 1.3rem;
+  transition: opacity 1s;
+}
+
+.search {
+  opacity: 0.3;
 }
 
 .todo-container {
@@ -176,7 +218,7 @@ li {
 
 i {
   cursor: pointer;
-  padding-top: 5px;
+  padding-top: 0.2rem;
 }
 
 i:hover {
@@ -198,8 +240,8 @@ i:hover {
 .todo-priority.edit {
   border: 1px solid grey;
   border-radius: 5px;
-  width: 30px;
-  padding-top: 5px;
+  width: 1.9rem;
+  padding-top: 0.2rem;
 }
 
 #loading {

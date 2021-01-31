@@ -19,6 +19,26 @@ document
   .getElementById("sort-button")
   .addEventListener("click", sortTheTasksByPriority);
 document.getElementById("undo-button").addEventListener("click", undo);
+document.getElementById("search-button").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    const searchButton = document.querySelector("#search-button");
+    console.log(searchButton.value);
+    const textArr = Array.from(document.querySelectorAll(".todo-text"));
+    let index;
+    for (let i = 0; i < textArr.length; i++) {
+      if (searchButton.value === textArr[i].innerText) index = i;
+    }
+    const lis = Array.from(
+      document.querySelectorAll(
+        `#to-do-list > li:not(:nth-child(${index + 1}))`
+      )
+    );
+    for (let i = 0; i < lis.length; i++) {
+      lis[i].setAttribute("class", "search");
+    }
+    searchButton.value = "";
+  }
+});
 let spanCounter = document.getElementById("counter");
 
 // Function that create to do task item and appending it to the html.
