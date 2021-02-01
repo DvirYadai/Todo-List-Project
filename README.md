@@ -1,15 +1,12 @@
 # ![Scale-Up Velocity](./readme-files/logo-main.png) Pre Course Project - Todo List 📋
 
-# Welcome to my to do list project!
+# Welcome to my Todo List project!
 
-This project will include most of the topics we have learnt so far.
-This repository includes a basic skeleton template with automated tests, use it for your submissions.
+In this read me i will introduce to you my project and show you the functionality of my website.
 
-In this project you will create a Todo List Web Application, in which the user can store prioritized _todo tasks_ and view/sort that list.
+Here is a preview sample of the add and sort tasks functionality:
 
-Here is a preview sample of the desired functionality (without styling):
-
-![Add todo task](./readme-files/basic-todo.gif)
+![Add and sort todo task](./readme-files/basic-todo.gif)
 
 ## Instructions
 
