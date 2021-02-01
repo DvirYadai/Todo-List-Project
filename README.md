@@ -1,5 +1,7 @@
 # ![Scale-Up Velocity](./readme-files/logo-main.png) Pre Course Project - Todo List 📋
 
+# Welcome to my to do list project!
+
 This project will include most of the topics we have learnt so far.
 This repository includes a basic skeleton template with automated tests, use it for your submissions.
 
