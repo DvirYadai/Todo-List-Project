@@ -6,7 +6,7 @@ In this readme i will introduce to you my project and show you the functionality
 
 Here is a preview sample of the add and sort tasks functionality:
 
-![Add and sort todo task](./readme-files/basic-todo.gif)
+![Add and sort todo task](./readme-files/add and sort tasks.gif)
 
 ## Instructions
 
