@@ -36,7 +36,7 @@ Here is a preview sample of the add and sort tasks functionality:
 - Loading spinner for network request
 - Mark/Unmark todo as done
 
-Explanation about the bonuses and how they work you can find in the [How it's works](#How-it's-works.) section.
+Explanation about the bonuses and how they work you can find in the [How it's works](##How-it's-works.) section.
 
 ## Resources
 
