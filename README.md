@@ -17,12 +17,12 @@ Here is a preview sample of the add and sort tasks functionality:
 - When you want to **add** a task you just need to write it in the **text input**, select the **priority** of the task and click on the **add** button.
 - You can add as many tasks as you want!
 - If you want to **delete** some task it's very simple! all you need is to click on the **trash icon** on the right side of your task and it will be deleted.
-- There is **edit** option to! when you click on the **pencil** icon on the right side of your task, an edit option will open to the name and priority of the task </br>
+- There is **edit** option to! when you click on the **pencil** icon on the right side of your task, an edit option will open to the name and priority of the task
   and when you done editing just press the **check icon** and your done editing your task! so simple right?
 - If you want to sort the tasks by their priority just click on the **sort button** and it will sort your tasks.
-- Now, let's say you want to undo a delete or editing action, all you need to do is click on the **undo icon** just right to the sort button </br>
+- Now, let's say you want to undo a delete or editing action, all you need to do is click on the **undo icon** just right to the sort button
   and it will undo your last action!
-- There's even a search bar, you can search the task name or just a word from your task name, press enter and it will highlight the muches words. </br>
+- There's even a search bar, you can search the task name or just a word from your task name, press enter and it will highlight the muches words.
   and when you want to search again just clear the search bar from the old search.
 - You can also mark tasks as **done** only by pressing the checkbox on the right side of the task and of course unmark the task as well.
 - Hope you will have fun, Good Luck! 🤘
