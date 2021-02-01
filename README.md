@@ -2,7 +2,7 @@
 
 # Welcome to my Todo List project!
 
-In this read me i will introduce to you my project and show you the functionality of my website.
+In this readme i will introduce to you my project and show you the functionality of my website.
 
 Here is a preview sample of the add and sort tasks functionality:
 
