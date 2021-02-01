@@ -121,6 +121,7 @@ h1 {
   font-size: 0.9rem;
   position: relative;
   margin: auto 2rem 1.5rem 1rem;
+  outline: none;
 }
 
 #add-button {

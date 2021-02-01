@@ -19,23 +19,28 @@ document
   .getElementById("sort-button")
   .addEventListener("click", sortTheTasksByPriority);
 document.getElementById("undo-button").addEventListener("click", undo);
-document.getElementById("search-button").addEventListener("keypress", (e) => {
+document.getElementById("search-button").addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
-    const searchButton = document.getElementById("search-button");
     const searched = document.getElementById("search-button").value.trim();
     if (searched !== "") {
       let text = Array.from(document.querySelectorAll(".todo-text"));
-      let re = new RegExp(searched, "g");
-      let newText = [];
+      const re = new RegExp(searched, "g");
       for (let i = 0; i < text.length; i++) {
-        newText.push(text[i].innerHTML.replace(re, `<mark>${searched}</mark>`));
-      }
-      let currentText = Array.from(document.querySelectorAll(".todo-text"));
-      for (let i = 0; i < currentText.length; i++) {
-        currentText[i].innerHTML = newText[i];
+        text[i].innerHTML = text[i].innerHTML.replace(
+          re,
+          `<mark>${searched}</mark>`
+        );
       }
     }
-    searchButton.value = "";
+  }
+  if (document.getElementById("search-button").value === "") {
+    let text = Array.from(document.querySelectorAll(".todo-text"));
+    for (let i = 0; i < text.length; i++) {
+      text[i].innerHTML = text[i].innerHTML.replace(
+        /(<mark[^>]*>|<\/mark>)/g,
+        ""
+      );
+    }
   }
 });
 let spanCounter = document.getElementById("counter");
