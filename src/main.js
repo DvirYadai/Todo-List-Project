@@ -333,6 +333,7 @@ function undo() {
     listItem.appendChild(containerDiv);
     toDoListUL.appendChild(listItem);
     savedToDoList.push(changeDataArr[changeDataArr.length - 1]);
+    spanCounter.innerText = savedToDoList.length;
   } else {
     // Checking in which li was the editing and revers the edit outcome.
     let index = 0;
