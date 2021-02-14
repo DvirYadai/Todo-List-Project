@@ -254,11 +254,6 @@ li {
   display: none;
 }
 
-.edit-display {
-  position: unset;
-  display: inline;
-}
-
 .todo-text {
   width: 35%;
   word-break: break-all;
