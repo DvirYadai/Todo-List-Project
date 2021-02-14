@@ -22,7 +22,7 @@ Here is a preview sample of the add and sort tasks functionality:
 - If you want to sort the tasks by their priority just click on the **sort button** and it will sort your tasks.
 - Now, let's say you want to undo a delete or editing action, all you need to do is click on the **undo icon** just right to the sort button
   and it will undo your last action!
-- There's even a search bar, you can search the task name or just a word from your task name, press enter and it will highlight the muches words.
+- There's even a search bar, you can search the task name or just a word from your task name, press enter and it will highlight the matches words.
   and when you want to search again just clear the search bar from the old search.
 - You can also mark tasks as **done** only by pressing the checkbox on the right side of the task and of course unmark the task as well.
 - Hope you will have fun, Good Luck! 🤘
