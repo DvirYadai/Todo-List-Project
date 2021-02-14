@@ -49,7 +49,6 @@ let spanCounter = document.getElementById("counter");
 function addingToDoTask() {
   const inputValue = document.getElementById("text-input");
   const inputPriority = document.getElementById("priority-selector");
-  console.log(inputPriority.value);
   if (inputValue.value === "" || inputPriority.value === "") {
     alert("Please enter your task and priority");
     return;
@@ -271,7 +270,6 @@ function checkBoxCreation(divParent) {
       for (let i = 0; i < savedToDoList.length; i++) {
         if (text.innerText === savedToDoList[i].text) {
           savedToDoList[i].isDone = true;
-          updateJsonBin(savedToDoList);
         }
       }
     } else {
@@ -280,37 +278,26 @@ function checkBoxCreation(divParent) {
       for (let i = 0; i < savedToDoList.length; i++) {
         if (text.innerText === savedToDoList[i].text) {
           savedToDoList[i].isDone = false;
-          updateJsonBin(savedToDoList);
         }
       }
     }
+    updateJsonBin(savedToDoList);
   });
 }
 
 // Function that sort array of object
 function sortTheTasksByPriority() {
-  let sortedToDoList = savedToDoList;
-  sortedToDoList.sort(function (a, b) {
-    return b.priority - a.priority;
+  let liArr = Array.from(document.querySelectorAll("li"));
+  console.log(liArr[0].children[0].children[1].innerText);
+  liArr.sort(function (a, b) {
+    return (
+      b.children[0].children[1].innerText - a.children[0].children[1].innerText
+    );
   });
+  console.log(liArr[0].children[0].children[1].innerText);
   const toDoListUL = document.getElementById("to-do-list");
-  let newLi;
-  const liArr = Array.from(document.querySelectorAll("li"));
-  const priorityArr = Array.from(document.querySelectorAll(".todo-priority"));
   toDoListUL.innerHTML = "";
-  let j;
-  for (const item of sortedToDoList) {
-    for (let i = 0; i < priorityArr.length; i++) {
-      if (item.priority === priorityArr[i].innerText) {
-        newLi = liArr[i];
-        j = i;
-        break;
-      }
-    }
-    toDoListUL.appendChild(newLi);
-    liArr.splice(j, 1);
-    priorityArr.splice(j, 1);
-  }
+  liArr.forEach((node) => toDoListUL.appendChild(node));
 }
 
 // Function that undo the last change
