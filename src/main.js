@@ -59,28 +59,11 @@ function addingToDoTask() {
     " " +
     timeCreation.toTimeString().split(" ")[0];
 
-  // Appending the object to the html.
-  const toDoListUL = document.getElementById("to-do-list");
-  const listItem = document.createElement("li");
-  const containerDiv = document.createElement("div");
-  containerDiv.setAttribute("class", "todo-container");
-
-  // Calling function that create div and appending the div to the containerDiv.
-  appendProperty(containerDiv, "todo-text", inputValue.value);
-  appendProperty(containerDiv, "todo-priority", inputPriority.value);
-  appendProperty(containerDiv, "todo-created-at", timeCreation);
-
-  listItem.appendChild(containerDiv);
-  toDoListUL.appendChild(listItem);
-
-  // Creating the delete button
-  deleteButtonCreation(containerDiv);
-
-  // Creating the edit button
-  editButtonCreation(containerDiv);
-
-  // Creating the checkbox
-  checkBoxCreation(containerDiv);
+  LiCreationAndAppendingToHTML(
+    inputValue.value,
+    inputPriority.value,
+    timeCreation
+  );
 
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
   toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
@@ -155,6 +138,31 @@ function appendProperty(divElement, className, innerText) {
   propertyDiv.setAttribute("class", className);
   propertyDiv.innerText = innerText;
   divElement.appendChild(propertyDiv);
+}
+
+// Function that creat li and appending it to the html
+function LiCreationAndAppendingToHTML(inputValue, inputPriority, timeCreation) {
+  const toDoListUL = document.getElementById("to-do-list");
+  const listItem = document.createElement("li");
+  const containerDiv = document.createElement("div");
+  containerDiv.setAttribute("class", "todo-container");
+
+  // Calling function that create div and appending the div to the containerDiv.
+  appendProperty(containerDiv, "todo-text", inputValue);
+  appendProperty(containerDiv, "todo-priority", inputPriority);
+  appendProperty(containerDiv, "todo-created-at", timeCreation);
+
+  listItem.appendChild(containerDiv);
+  toDoListUL.appendChild(listItem);
+
+  // Creating the delete button
+  deleteButtonCreation(containerDiv);
+
+  // Creating the edit button
+  editButtonCreation(containerDiv);
+
+  // Creating the checkbox
+  checkBoxCreation(containerDiv);
 }
 
 // Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
@@ -302,34 +310,14 @@ function sortTheTasksByPriority() {
 function undo() {
   // Getting the array with the saved changes.
   let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
-
   // Checking if the last change was delete or edit.
   if (changeDataArr[changeDataArr.length - 1].date) {
     // Creating new li, appending it with the deleted data and appending the li to the html.
-    const toDoListUL = document.getElementById("to-do-list");
-    const listItem = document.createElement("li");
-    const containerDiv = document.createElement("div");
-    containerDiv.setAttribute("class", "todo-container");
-    appendProperty(
-      containerDiv,
-      "todo-text",
-      changeDataArr[changeDataArr.length - 1].text
-    );
-    appendProperty(
-      containerDiv,
-      "todo-priority",
-      changeDataArr[changeDataArr.length - 1].priority
-    );
-    appendProperty(
-      containerDiv,
-      "todo-created-at",
+    LiCreationAndAppendingToHTML(
+      changeDataArr[changeDataArr.length - 1].text,
+      changeDataArr[changeDataArr.length - 1].priority,
       changeDataArr[changeDataArr.length - 1].date
     );
-    deleteButtonCreation(containerDiv);
-    editButtonCreation(containerDiv);
-    checkBoxCreation(containerDiv);
-    listItem.appendChild(containerDiv);
-    toDoListUL.appendChild(listItem);
     savedToDoList.push(changeDataArr[changeDataArr.length - 1]);
     spanCounter.innerText = savedToDoList.length;
   } else {
