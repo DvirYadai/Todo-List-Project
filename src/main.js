@@ -156,9 +156,6 @@ function appendProperty(divElement, className, innerText) {
   propertyDiv.setAttribute("class", className);
   propertyDiv.innerText = innerText;
   divElement.appendChild(propertyDiv);
-  if (className === "todo-priority") {
-    propertyDiv.setAttribute("onkeypress", "return (this.type = number)");
-  }
 }
 
 // Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
@@ -202,25 +199,21 @@ function editButtonCreation(divParent) {
   divParent.appendChild(editButton);
 
   const checkButton = document.createElement("i");
-  checkButton.setAttribute("class", "far fa-check-circle");
+  checkButton.setAttribute("class", "far fa-check-circle check-default");
   divParent.appendChild(checkButton);
-  checkButton.style.position = "absolute";
-  checkButton.style.display = "none";
 
   // Add click event to the button
   editButton.addEventListener("click", () => {
     const textDiv = divParent.querySelector("div.todo-text");
     const priorityDiv = divParent.querySelector("div.todo-priority");
-    editButton.style.position = "absolute";
-    editButton.style.display = "none";
-    checkButton.style.position = "unset";
-    checkButton.style.display = "inline";
+    editButton.classList.add("edit-clicked");
+    checkButton.classList.replace("check-default", "check-when-edit-clicked");
 
     textDiv.contentEditable = true;
-    textDiv.classList.toggle("edit");
+    textDiv.classList.add("edit");
     textDiv.focus();
     priorityDiv.contentEditable = true;
-    priorityDiv.classList.toggle("edit");
+    priorityDiv.classList.add("edit");
     let index = 0;
     for (let i = 0; i < savedToDoList.length; i++) {
       if (savedToDoList[i].text === textDiv.innerText) index = i;
@@ -248,10 +241,8 @@ function editButtonCreation(divParent) {
       textDiv.classList.remove("edit");
       priorityDiv.contentEditable = false;
       priorityDiv.classList.remove("edit");
-      editButton.style.position = "unset";
-      editButton.style.display = "inline";
-      checkButton.style.position = "absolute";
-      checkButton.style.display = "none";
+      editButton.classList.remove("edit-clicked");
+      checkButton.classList.replace("check-when-edit-clicked", "check-default");
 
       // Adding more data to the changeDataArr for the undo function.
       changeDataArr[changeDataArr.length - 1].newText = textDiv.innerText;

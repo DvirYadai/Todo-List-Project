@@ -239,6 +239,26 @@ li {
   transform: scale(0.8);
 }
 
+.edit-clicked {
+  position: absolute;
+  display: none;
+}
+
+.check-when-edit-clicked {
+  position: unset;
+  display: inline;
+}
+
+.check-default {
+  position: absolute;
+  display: none;
+}
+
+.edit-display {
+  position: unset;
+  display: inline;
+}
+
 .todo-text {
   width: 35%;
   word-break: break-all;
