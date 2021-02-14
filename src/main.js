@@ -288,13 +288,11 @@ function checkBoxCreation(divParent) {
 // Function that sort array of object
 function sortTheTasksByPriority() {
   let liArr = Array.from(document.querySelectorAll("li"));
-  console.log(liArr[0].children[0].children[1].innerText);
   liArr.sort(function (a, b) {
     return (
       b.children[0].children[1].innerText - a.children[0].children[1].innerText
     );
   });
-  console.log(liArr[0].children[0].children[1].innerText);
   const toDoListUL = document.getElementById("to-do-list");
   toDoListUL.innerHTML = "";
   liArr.forEach((node) => toDoListUL.appendChild(node));
