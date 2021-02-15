@@ -2,7 +2,7 @@ const DB_NAME = "my-todo";
 
 // Function that returning the data from the server
 function getJsonBinData() {
-  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa/latest")
+  fetch("https://api.jsonbin.io/v4/b/6015baed13b20d48e8bf32fa/latest")
     .then((response) => response.json())
     .then((data) => {
       savedToDoList = data.record["my-todo"];
@@ -14,7 +14,7 @@ function getJsonBinData() {
       const toDoListUL = document.getElementById("to-do-list");
       const listItem = document.createElement("li");
       toDoListUL.appendChild(listItem);
-      listItem.innerHTML = "There is a problem in our servers, hang tight";
+      listItem.innerHTML = `There is a problem in our servers, hang tight.</br> Please refresh the page.`;
       hideLoading();
     });
 }
