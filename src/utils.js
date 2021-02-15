@@ -23,7 +23,7 @@ function getJsonBinData() {
 function updateJsonBin(toDoListArr) {
   return new Promise(function (resolve, reject) {
     let xhr = new XMLHttpRequest();
-    xhr.open("PUT", "https://api.jsonbin.io/v4/b/6015baed13b20d48e8bf32fa");
+    xhr.open("PUT", "https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa");
     xhr.setRequestHeader("Content-Type", "application/json");
     body = JSON.stringify({ "my-todo": toDoListArr });
     xhr.send(body);
