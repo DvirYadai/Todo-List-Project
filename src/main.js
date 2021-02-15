@@ -3,21 +3,7 @@ let savedToDoList = [];
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
   displayLoading();
-  getJsonBinData()
-    .then((response) => response.json())
-    .then((data) => {
-      savedToDoList = data.record["my-todo"];
-      if (savedToDoList === null) return;
-      addingTasksWhenContentLoaded(savedToDoList);
-      hideLoading();
-    })
-    .catch(() => {
-      const toDoListUL = document.getElementById("to-do-list");
-      const listItem = document.createElement("li");
-      toDoListUL.appendChild(listItem);
-      listItem.innerHTML = "There is a problem in our servers, hang tight";
-      hideLoading();
-    });
+  getJsonBinData();
 });
 
 // main events
@@ -354,28 +340,6 @@ function undo() {
   updateJsonBin(savedToDoList);
   changeDataArr.splice(changeDataArr.length - 1, 1);
   localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
-}
-
-// Function that updating the JSONBIN.io.
-function updateJsonBin(toDoListArr) {
-  displayLoading();
-  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ "my-todo": toDoListArr }),
-  }).then((res) => {
-    if (!res.ok) {
-      alert("There is a problem in our servers, your changes didn't save");
-      hideLoading();
-    } else hideLoading();
-  });
-}
-
-// Function that returning the data from the server
-function getJsonBinData() {
-  return fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa/latest");
 }
 
 // showing loading
