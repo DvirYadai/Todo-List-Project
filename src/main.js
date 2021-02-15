@@ -351,13 +351,16 @@ function undo() {
 
 // Function that updating the JSONBIN.io.
 function updateJsonBin(toDoListArr) {
+  displayLoading();
   fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ "my-todo": toDoListArr }),
-  });
+  })
+    .then((response) => response.json())
+    .then(() => hideLoading());
 }
 
 // Function that returning the data from the server
