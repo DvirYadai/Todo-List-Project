@@ -358,9 +358,7 @@ function updateJsonBin(toDoListArr) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ "my-todo": toDoListArr }),
-  })
-    .then((response) => response.json())
-    .then(() => hideLoading());
+  }).then(() => hideLoading());
 }
 
 // Function that returning the data from the server
