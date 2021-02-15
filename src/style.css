@@ -279,13 +279,6 @@ input[type="checkbox"] {
   transform: scale(1.5);
 }
 
-.line {
-  position: absolute;
-  top: 50%;
-  border-bottom: 1px solid black;
-  width: 60%;
-}
-
 #loading {
   width: 3rem;
   height: 3rem;
