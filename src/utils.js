@@ -2,7 +2,7 @@ const DB_NAME = "my-todo";
 
 // Function that returning the data from the server
 function getJsonBinData() {
-  fetch("https://api.jsonbin.io/v4/b/6015baed13b20d48e8bf32fa/latest")
+  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa/latest")
     .then((response) => response.json())
     .then((data) => {
       savedToDoList = data.record["my-todo"];
@@ -30,9 +30,10 @@ function updateJsonBin(toDoListArr) {
     body: JSON.stringify({ "my-todo": toDoListArr }),
   }).then((res) => {
     if (!res.ok) {
+      console.log(res);
       hideLoading();
       const errorDiv = document.createElement("div");
-      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${res.status})</br>Please refresh the page.`;
       errorDiv.setAttribute("class", "error");
       document.querySelector("body").appendChild(errorDiv);
     } else hideLoading();
