@@ -3,7 +3,20 @@ let savedToDoList = [];
 // Prevent the tasks from erasing when i refresh the page
 window.addEventListener("DOMContentLoaded", () => {
   displayLoading();
-  getJsonBinData();
+  getJsonBinData()
+    .then((resolve) => {
+      savedToDoList = resolve.record["my-todo"];
+      if (savedToDoList === null) return;
+      addingTasksWhenContentLoaded(savedToDoList);
+      hideLoading();
+    })
+    .catch((error) => {
+      const toDoListUL = document.getElementById("to-do-list");
+      const listItem = document.createElement("li");
+      toDoListUL.appendChild(listItem);
+      listItem.innerHTML = `There is a problem in our servers, hang tight (Error code: ${error})</br> Please refresh the page.`;
+      hideLoading();
+    });
 });
 
 // main events
@@ -83,7 +96,16 @@ function toDoTaskObjectCreationAndStorage(text, priority, time) {
 
   // Store the object in the JSONBIN.io
   savedToDoList.push(taskObject);
-  updateJsonBin(savedToDoList);
+  displayLoading();
+  updateJsonBin(savedToDoList)
+    .then(() => hideLoading())
+    .catch((error) => {
+      hideLoading();
+      const errorDiv = document.createElement("div");
+      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+      errorDiv.setAttribute("class", "error");
+      document.querySelector("body").appendChild(errorDiv);
+    });
 
   // Changing the counter
   spanCounter.innerText = savedToDoList.length;
@@ -188,7 +210,16 @@ function deleteButtonCreation(divParent) {
     localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
 
     // Updating the JSONBIN.io
-    updateJsonBin(savedToDoList);
+    displayLoading();
+    updateJsonBin(savedToDoList)
+      .then(() => hideLoading())
+      .catch((error) => {
+        hideLoading();
+        const errorDiv = document.createElement("div");
+        errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+        errorDiv.setAttribute("class", "error");
+        document.querySelector("body").appendChild(errorDiv);
+      });
   });
 }
 
@@ -252,7 +283,16 @@ function editButtonCreation(divParent) {
       savedToDoList[index].text = textDiv.innerText;
       savedToDoList[index].priority = priorityDiv.innerText;
       localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
-      updateJsonBin(savedToDoList);
+      displayLoading();
+      updateJsonBin(savedToDoList)
+        .then(() => hideLoading())
+        .catch((error) => {
+          hideLoading();
+          const errorDiv = document.createElement("div");
+          errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+          errorDiv.setAttribute("class", "error");
+          document.querySelector("body").appendChild(errorDiv);
+        });
     });
   });
 }
@@ -282,7 +322,18 @@ function checkBoxCreation(divParent) {
         }
       }
     }
-    updateJsonBin(savedToDoList);
+    displayLoading();
+    updateJsonBin(savedToDoList)
+      .then(() => {
+        hideLoading();
+      })
+      .catch((error) => {
+        hideLoading();
+        const errorDiv = document.createElement("div");
+        errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+        errorDiv.setAttribute("class", "error");
+        document.querySelector("body").appendChild(errorDiv);
+      });
   });
 }
 
@@ -337,7 +388,16 @@ function undo() {
   }
   // Updating the localStorage and JSONBIN.io with the undo changes and deleting the last change from the changeDataArr.
   localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
-  updateJsonBin(savedToDoList);
+  displayLoading();
+  updateJsonBin(savedToDoList)
+    .then(() => hideLoading())
+    .catch((error) => {
+      hideLoading();
+      const errorDiv = document.createElement("div");
+      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${error})</br>Please refresh the page.`;
+      errorDiv.setAttribute("class", "error");
+      document.querySelector("body").appendChild(errorDiv);
+    });
   changeDataArr.splice(changeDataArr.length - 1, 1);
   localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 }
