@@ -18,7 +18,7 @@ async function getJsonBinData() {
     const toDoListUL = document.getElementById("to-do-list");
     const listItem = document.createElement("li");
     toDoListUL.appendChild(listItem);
-    listItem.innerHTML = "There is a problem in our servers, hang tight";
+    listItem.innerHTML = `There is a problem in our servers, hang tight (Error code: ${error})</br> Please refresh the page.`;
     hideLoading();
   }
 }
