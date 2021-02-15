@@ -10,6 +10,13 @@ window.addEventListener("DOMContentLoaded", () => {
       if (savedToDoList === null) return;
       addingTasksWhenContentLoaded(savedToDoList);
       hideLoading();
+    })
+    .catch(() => {
+      const toDoListUL = document.getElementById("to-do-list");
+      const listItem = document.createElement("li");
+      toDoListUL.appendChild(listItem);
+      listItem.innerHTML = "There is a problem in our servers, hang tight";
+      hideLoading();
     });
 });
 
@@ -358,7 +365,12 @@ function updateJsonBin(toDoListArr) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ "my-todo": toDoListArr }),
-  }).then(() => hideLoading());
+  }).then((res) => {
+    if (!res.ok) {
+      alert("There is a problem in our servers, your changes didn't save");
+      hideLoading();
+    } else hideLoading();
+  });
 }
 
 // Function that returning the data from the server
