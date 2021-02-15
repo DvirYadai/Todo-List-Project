@@ -39,7 +39,7 @@ document.getElementById("search-button").addEventListener("keyup", (e) => {
 let spanCounter = document.getElementById("counter");
 
 // Function that create to do task item and appending it to the html.
-function addingToDoTask() {
+async function addingToDoTask() {
   const inputValue = document.getElementById("text-input");
   const inputPriority = document.getElementById("priority-selector");
   if (inputValue.value === "" || inputPriority.value === "") {
@@ -52,21 +52,25 @@ function addingToDoTask() {
     " " +
     timeCreation.toTimeString().split(" ")[0];
 
-  LiCreationAndAppendingToHTML(
+  await LiCreationAndAppendingToHTML(
     inputValue.value,
     inputPriority.value,
     timeCreation
   );
 
   // Calling a function to store the text, priority and time in the localStorage and in the JSONBIN.io.
-  toDoTaskObjectCreationAndStorage(inputValue, inputPriority, timeCreation);
+  await toDoTaskObjectCreationAndStorage(
+    inputValue,
+    inputPriority,
+    timeCreation
+  );
 
   // Cleaning the text input.
   inputValue.value = "";
 }
 
 // Function that create to do task object and store it in the localStorage and in the JSONBIN.io.
-function toDoTaskObjectCreationAndStorage(text, priority, time) {
+async function toDoTaskObjectCreationAndStorage(text, priority, time) {
   // Creation of task object
   const taskObject = {
     priority: priority.value,
@@ -83,14 +87,14 @@ function toDoTaskObjectCreationAndStorage(text, priority, time) {
 
   // Store the object in the JSONBIN.io
   savedToDoList.push(taskObject);
-  updateJsonBin(savedToDoList);
+  await updateJsonBin(savedToDoList);
 
   // Changing the counter
   spanCounter.innerText = savedToDoList.length;
 }
 
 // !only when refreshing! Function that create to do task item and appending it to the html from the array located in JS file. !only when refreshing!
-function addingTasksWhenContentLoaded(arr) {
+async function addingTasksWhenContentLoaded(arr) {
   const toDoListUL = document.getElementById("to-do-list");
   for (const item of arr) {
     const listItem = document.createElement("li");
@@ -105,13 +109,13 @@ function addingTasksWhenContentLoaded(arr) {
     toDoListUL.appendChild(listItem);
 
     // Creating the delete button
-    deleteButtonCreation(containerDiv);
+    await deleteButtonCreation(containerDiv);
 
     // Creating the edit button
-    editButtonCreation(containerDiv);
+    await editButtonCreation(containerDiv);
 
     // Creating the checkbox
-    checkBoxCreation(containerDiv);
+    await checkBoxCreation(containerDiv);
 
     // Checking if the task is already finished
     if (item.isDone === true) {
@@ -134,7 +138,11 @@ function appendProperty(divElement, className, innerText) {
 }
 
 // Function that creat li and appending it to the html
-function LiCreationAndAppendingToHTML(inputValue, inputPriority, timeCreation) {
+async function LiCreationAndAppendingToHTML(
+  inputValue,
+  inputPriority,
+  timeCreation
+) {
   const toDoListUL = document.getElementById("to-do-list");
   const listItem = document.createElement("li");
   const containerDiv = document.createElement("div");
@@ -149,17 +157,17 @@ function LiCreationAndAppendingToHTML(inputValue, inputPriority, timeCreation) {
   toDoListUL.appendChild(listItem);
 
   // Creating the delete button
-  deleteButtonCreation(containerDiv);
+  await deleteButtonCreation(containerDiv);
 
   // Creating the edit button
-  editButtonCreation(containerDiv);
+  await editButtonCreation(containerDiv);
 
   // Creating the checkbox
-  checkBoxCreation(containerDiv);
+  await checkBoxCreation(containerDiv);
 }
 
 // Function that create the delete button, adding click event and updating the localStorage and the JSONBIN.io
-function deleteButtonCreation(divParent) {
+async function deleteButtonCreation(divParent) {
   const deleteButton = document.createElement("i");
   deleteButton.setAttribute("class", "fas fa-trash-alt");
   divParent.appendChild(deleteButton);
@@ -193,7 +201,7 @@ function deleteButtonCreation(divParent) {
 }
 
 // Function that create the edit button, adding click events and updating the localStorage and the JSONBIN.io
-function editButtonCreation(divParent) {
+async function editButtonCreation(divParent) {
   const editButton = document.createElement("i");
   editButton.setAttribute("class", "fas fa-edit");
   divParent.appendChild(editButton);
@@ -258,7 +266,7 @@ function editButtonCreation(divParent) {
 }
 
 // Function that add checkbox to the task
-function checkBoxCreation(divParent) {
+async function checkBoxCreation(divParent) {
   const checkBox = document.createElement("input");
   checkBox.setAttribute("type", "checkbox");
   checkBox.setAttribute("id", "checkbox");
@@ -300,13 +308,13 @@ function sortTheTasksByPriority() {
 }
 
 // Function that undo the last change
-function undo() {
+async function undo() {
   // Getting the array with the saved changes.
   let changeDataArr = JSON.parse(localStorage.getItem("changeDataArr"));
   // Checking if the last change was delete or edit.
   if (changeDataArr[changeDataArr.length - 1].date) {
     // Creating new li, appending it with the deleted data and appending the li to the html.
-    LiCreationAndAppendingToHTML(
+    await LiCreationAndAppendingToHTML(
       changeDataArr[changeDataArr.length - 1].text,
       changeDataArr[changeDataArr.length - 1].priority,
       changeDataArr[changeDataArr.length - 1].date
@@ -337,7 +345,7 @@ function undo() {
   }
   // Updating the localStorage and JSONBIN.io with the undo changes and deleting the last change from the changeDataArr.
   localStorage.setItem("my-todo", JSON.stringify(savedToDoList));
-  updateJsonBin(savedToDoList);
+  await updateJsonBin(savedToDoList);
   changeDataArr.splice(changeDataArr.length - 1, 1);
   localStorage.setItem("changeDataArr", JSON.stringify(changeDataArr));
 }
