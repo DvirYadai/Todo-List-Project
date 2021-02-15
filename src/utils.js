@@ -34,11 +34,3 @@ function updateJsonBin(toDoListArr) {
     };
   });
 }
-
-// alert("There is a problem in our servers, your changes didn't save");
-// const toDoListUL = document.getElementById("to-do-list");
-// const listItem = document.createElement("li");
-// toDoListUL.appendChild(listItem);
-// listItem.innerHTML = "There is a problem in our servers, hang tight";
-// hideLoading();
-// return;
