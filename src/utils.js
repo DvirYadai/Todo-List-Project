@@ -1,11 +1,9 @@
-const DB_NAME = "my-todo";
-
 // Function that returning the data from the server
 function getJsonBinData() {
-  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa/latest")
+  fetch("http://localhost:3000/b/tasks")
     .then((response) => response.json())
     .then((data) => {
-      savedToDoList = data.record["my-todo"];
+      savedToDoList = data["my-todo"];
       if (savedToDoList === null) return;
       addingTasksWhenContentLoaded(savedToDoList);
       hideLoading();
@@ -22,7 +20,7 @@ function getJsonBinData() {
 // Function that updating the JSONBIN.io.
 function updateJsonBin(toDoListArr) {
   displayLoading();
-  fetch("https://api.jsonbin.io/v3/b/6015baed13b20d48e8bf32fa", {
+  fetch("http://localhost:3000/b/tasks", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

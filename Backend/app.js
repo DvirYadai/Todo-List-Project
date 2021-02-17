@@ -29,7 +29,7 @@ app.get("/b/:id", (req, res) => {
   fs.readFile(`./Backend/tasks/${id}.json`, (err, data) => {
     if (err) {
       res.status(500).json({ message: "Error!", error: err });
-    } else res.status(201).res.send(data);
+    } else res.send(data);
   });
 });
 
