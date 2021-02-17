@@ -26,14 +26,16 @@ function updateJsonBin(toDoListArr) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ "my-todo": toDoListArr }),
-  }).then((res) => {
-    if (!res.ok) {
-      console.log(res);
+  })
+    .then((res) => res.json())
+    .then((data) => {
       hideLoading();
+    })
+    .catch(() => {
       const errorDiv = document.createElement("div");
-      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save. (Error code ${res.status})</br>Please refresh the page.`;
+      errorDiv.innerHTML = `There is a problem in our servers, your changes didn't save.</br> Please refresh the page.`;
       errorDiv.setAttribute("class", "error");
       document.querySelector("body").appendChild(errorDiv);
-    } else hideLoading();
-  });
+      hideLoading();
+    });
 }
