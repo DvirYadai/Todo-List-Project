@@ -6,8 +6,6 @@ In this readme i will introduce you to my project and show you the functionaliti
 
 - link to my [repo](https://github.com/DvirYadai/Todo-List-Project/tree/AsyncAwait)
 
-- link to the [website](https://dviryadai.github.io/pre-course-2021-final-boilerplate/src/)
-
 Here is a preview sample of the add and sort tasks functionality:
 
 ![add and sort tasks](./readme-files/add-and-sort-tasks.gif)
