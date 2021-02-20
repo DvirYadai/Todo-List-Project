@@ -6,9 +6,7 @@ In this readme i will introduce you to my project and show you the functionaliti
 
 **Note** that this is a backend branch and the website will work only with my Backend server project running, link to the backend [repo](https://github.com/DvirYadai/Backend-Restful-API)
 
-- link to my [repo](https://github.com/DvirYadai/pre-course-2021-final-boilerplate)
-
-- link to the [website](https://dviryadai.github.io/Todo-List-Project/src/)
+- link to my [repo](https://github.com/DvirYadai/Todo-List-Project/tree/Backend-Restful-API)
 
 Here is a preview sample of the add and sort tasks functionality:
 
