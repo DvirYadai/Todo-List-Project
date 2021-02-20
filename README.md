@@ -8,7 +8,7 @@ In this readme i will introduce you to my project and show you the functionaliti
 
 - link to my [repo](https://github.com/DvirYadai/pre-course-2021-final-boilerplate)
 
-- link to the [website](https://dviryadai.github.io/pre-course-2021-final-boilerplate/src/)
+- link to the [website](https://dviryadai.github.io/Todo-List-Project/src/)
 
 Here is a preview sample of the add and sort tasks functionality:
 
